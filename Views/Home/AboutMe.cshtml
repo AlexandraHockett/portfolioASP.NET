@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "About me";
+}
+<div class="content-container container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="content">
+                <h1 class="mb-4">Hi I am Alexandra Hockett</h1>
+                <h2 class="mb-4">Frontend Developer, based in Portugal.</h2>
+                <p class="mb-4">
+                    Hi I'm Alexandra and this is my portfolio. I've worked all my life
+                    in restaurants and pubs, till the time that I became pregnant and
+                    decided that it was time for a change. It’s never too late to
+                    learn different skills, and that’s why I decide to get into
+                    this new coding adventure… I hope to one day do this as a career,
+                    so I need to get as much knowledge as possible 💪🏼
+                </p>
+                <a href="work.html" class="btn btn-branding">See my projects</a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <img src="https://epic-shannon-79c7da.netlify.app/images/Alexandra.jpg"
+                 alt="Alexandra Hockett"
+                 class="img-fluid rounded-circle" />
+        </div>
+    </div>
+</div>
+
+<div class="certificate-section">
+    <h3 class="
+          text-center
+          d-flex
+          justify-content-center
+          d-sm-flex
+          certificate-header
+        ">
+        Certificates
+    </h3>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-12 certificate">
+                <a id="certificate-link" href="@Model[0].Link" target="_blank" title="@Model[0].Title">
+                    <img id="certificate-image" src="@Model[0].ImageUrl"
+                         alt="@Model[0].Title"
+                         class="img-fluid shadow-lg mb-4 certificate mb-3"
+                         title="@Model[0].Title" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const certificates = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    let currentIndex = 0;
+
+    function showNextCertificate() {
+        currentIndex++;
+        if (currentIndex >= certificates.length) {
+            currentIndex = 0;
+        }
+
+        const certificate = certificates[currentIndex];
+        const certificateImage = document.getElementById("certificate-image");
+        const certificateLink = document.getElementById("certificate-link");
+
+        certificateImage.src = certificate.ImageUrl;
+        certificateImage.alt = certificate.Title;
+        certificateImage.title = certificate.Title;
+        certificateLink.href = certificate.Link;
+        certificateLink.title = certificate.Title;
+    }
+
+    setInterval(showNextCertificate, 2000); // Change every 2 seconds
+</script>
